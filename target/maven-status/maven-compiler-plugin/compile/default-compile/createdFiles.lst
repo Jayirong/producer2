@@ -1,0 +1,11 @@
+com\anemona\producer2\service\Producer2Service$2.class
+com\anemona\producer2\config\RestTemplateConfig.class
+com\anemona\producer2\DTO\AlertaDTO.class
+com\anemona\producer2\Producer2Application.class
+com\anemona\producer2\config\Producer2Config.class
+com\anemona\producer2\config\SecurityConfig.class
+com\anemona\producer2\service\Producer2Service$1.class
+com\anemona\producer2\model\HistoricoMensaje.class
+com\anemona\producer2\service\Producer2Service.class
+com\anemona\producer2\controller\Producer2Controller.class
+com\anemona\producer2\DTO\EstadoVitalDTO.class
