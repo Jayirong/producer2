@@ -1,6 +1,7 @@
 package com.anemona.producer2.DTO;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.Data;
 
@@ -11,6 +12,7 @@ public class EstadoVitalDTO {
     private int presion_arterial_sis;
     private int presion_arterial_dias;
     private float saturacion_oxigeno;
-    private LocalDateTime fecha_registro_ev;
+    private LocalDate fecha_registro_ev;
+    private LocalTime hora_registro_ev;
     private Long id_paciente;
 }
