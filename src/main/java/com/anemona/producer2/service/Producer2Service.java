@@ -33,7 +33,8 @@ public class Producer2Service {
     @Value("${aneback.url}")
     private String anebackUrl;
 
-    @Scheduled(fixedRate = 30000)
+    //5 minutos
+    @Scheduled(fixedRate = 300000)
     public void generarHistorico() {
         try {
             log.info("Iniciando generacion de historico");
