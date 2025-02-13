@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -62,11 +61,16 @@ public class Producer2Service {
 
     private List<EstadoVitalDTO> obtenerEstadosVitales() {
         try {
-            String url = anebackUrl + "/api/estadoVitales/all";
-            log.info("Consultando estados vitales en: {}", url);
+            
+            LocalDateTime fechaFin = LocalDateTime.now();
+            LocalDateTime fechaInicio = fechaFin.minusMinutes(5);
 
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            log.info("Respuesta recibida: {}", response.getBody());
+            String url = String.format("%s/api/estadoVitales/rango?desde=%s&hasta=%s",
+                anebackUrl,
+                fechaInicio.toString(),
+                fechaFin.toString());
+
+            log.info("Consultando Estados vitales en: {}", url);
 
             return restTemplate.exchange(
                 url,
@@ -75,25 +79,22 @@ public class Producer2Service {
                 new ParameterizedTypeReference<List<EstadoVitalDTO>>() { }
             ).getBody();
         } catch (Exception e) {
-            log.error("Error completo: ", e);
+            log.error("Error obteniendo estados vitales: ", e);
             throw e;
         }
     }
 
     private List<AlertaDTO> obtenerAlertas() {
         try {
-            String url = anebackUrl + "/api/alertas/all";
-            log.info("Respuesta de alertas raw: {}", url);
+            LocalDateTime fechaFin = LocalDateTime.now();
+            LocalDateTime fechaInicio = fechaFin.minusMinutes(5);
 
-            //obtenemos la respuesta 
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-            log.info("Respuesta de alertas raw: {}", response.getBody());
+            String url = String.format("%s/api/alertas/rango?desde=%s&hasta=%s", 
+                anebackUrl,
+                fechaInicio.toString(),
+                fechaFin.toString());
 
-            if (!response.getStatusCode().is2xxSuccessful()) {
-               log.error("Error HTTP: {}", response.getStatusCode());
-               throw new RuntimeException("Error HTTP al obtener alertas"); 
-            }
-
+            log.info("Consultando alertas en: {}", url);
             
             return restTemplate.exchange(
                 url,
